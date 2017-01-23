@@ -1,0 +1,153 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 6}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 6}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+\subsection*{Teilaufgabe a)}
+
+\begin{verbatim}
+function c=compose(f,g)
+
+    compose = @(g,f)@(x)g(f(x));
+    c = compose(g,f);
+    
+end
+\end{verbatim}
+
+\subsection*{Teilaufgabe b)}
+
+\begin{verbatim}
+h1 = -1
+h2 = -9.999999850988388e-01
+h3 = -9.998999999997488e-01
+
+j1 = -9.999999999990001e-01
+j2 = -9.999999899999998e-01
+j3 = -9.998999999999999e-01
+\end{verbatim}
+
+\subsection*{Teilaufgabe c)}
+
+\begin{verbatim}
+rel_h1 = 0
+rel_h2 = 1.490116119384766e-08
+rel_h3 = 1.000000002512325e-04
+
+rel_j1 = 9.998668559774160e-13
+rel_j2 = 1.000000016126990e-08
+rel_j3 = 1.000000000001000e-04
+\end{verbatim}
+
+\subsection*{Teilaufgabe d)}
+
+Rundungsfehler?
+\begin{verbatim}
+% Long scientific notation with 15 digits after the decimal point for
+% double values, and 7 digits after the decimal point for single values.
+\end{verbatim}
+\newpage
+
+\section*{Aufgabe 2}
+
+\underline{Allgemeine Begründung für folgende Funktionswahl}:\\
+\\
+Die Anzahl an benötigten Elementarfunktionen für die Berechnung wurden minimiert.
+
+\subsection*{Teilaufgabe a)}
+Verwende, dass $\cos^2(x)+\sin^2(x)=1$ und 3. binomische Formel $(a-b)\cdot(a+b)=a^2-b^2$\\
+\begin{align*}
+\frac{\cos^2(x)+\sin^2(x)-x}{x^2-1}
+&=\frac{1-x}{x^2-1}\\
+&=\frac{1-x}{(x-1)\cdot (x+1)}\\
+&=\frac{(x-1)\cdot(-1)}{(x-1)\cdot (x+1)}\\
+&=- \frac{1}{1+x}
+\end{align*}
+$\frac{\cos^2(x)+\sin^2(x)-x}{x^2-1}\Rightarrow - \frac{1}{1+x}$\\
+\\
+2 Operationen:
+\begin{itemize}
+\item 1 Addition
+\item 1 Division
+\end{itemize}
+\subsection*{Teilaufgabe b)}
+Durch die Regel $+x-x=0$ können Terme umgeformt werden!
+\begin{align*}
+\frac{3x^2+5}{5+x}-\frac{1-3x}{1+3x}
+&=\frac{(3x^2+5)\cdot (1+3x)-(1-3x)\cdot (5+x)}{(5+x)\cdot (1+3x)}\\
+&=\frac{9x^3+6x^2+29x}{(5+x)\cdot (1+3x)}\\
+&=\frac{9x^3+6x^2-211x+240x-80+80}{(5+x)\cdot (1+3x)}\\
+&=\frac{9x^3+6x^2-211x-80}{(5+x)\cdot (1+3x)} + \frac{240x+80}{(5+x)\cdot (1+3x)}\\
+&=\frac{9x^3+-39x^2+45x^2-211x-80}{(5+x)\cdot (1+3x)} + \frac{80\cdot(1+3x)}{(5+x)\cdot (1+3x)}\\
+&=\frac{(9x^2-39x-16)\cdot (5+x)}{(5+x)\cdot (1+3x)} + \frac{80\cdot(1+3x)}{(5+x)\cdot (1+3x)}\\
+&=\frac{9x^2-39x-16}{1+3x} + \frac{80}{5+x}\\
+&=\frac{9x^2+3x-2}{1+3x}+ \frac{-42x-14}{1+3x} + \frac{80}{5+x}\\
+&=\frac{9x^2+3x}{1+3x}-\frac{2}{1+3x}+ \frac{14\cdot(1+3x)}{1+3x} + \frac{80}{5+x}\\
+&=\frac{3x\cdot (3x+1)}{1+3x}-\frac{2}{1+3x}+ 14 + \frac{80}{5+x}\\
+&=3x+ \frac{80}{5+x}-\frac{2}{1+3x}+ 14 \\
+\end{align*}
+$\frac{3x^2+5}{5+x}-\frac{1-3x}{1+3x} \Rightarrow3x + \frac{80}{x+5} - \frac{2}{3x+1} - 14$\\
+\\
+9 (bzw. 8) Operationen:
+\begin{itemize}
+\item 3 Addition
+\item 2 Subtraktionen
+\item 2 Multiplikationen (Lazy reduzierbar auf eine Multiplikation!)
+\item 2 Division
+\end{itemize}
+\subsection*{Teilaufgabe c)}
+Verwende binomischen Satz: $(a+b)^3=a^3+3a^2b+3ab^2+b^3$\\
+$\sqrt{ax+b} - \sqrt{a^3x^3+3a^2x^2b+3axb^2+b^3}\Rightarrow \sqrt{ax+b} - \sqrt{(ax+b)^3}$\\
+\\
+8 (bzw. 7) Operationen:
+\begin{itemize}
+\item 2 Addition
+\item 1 Subtraktionen
+\item 2 Multiplikationen (Lazy reduzierbar auf eine Multiplikation!)
+\item 1 Potenz
+\item 2 Wurzeln
+\end{itemize}
+
+\end{document}

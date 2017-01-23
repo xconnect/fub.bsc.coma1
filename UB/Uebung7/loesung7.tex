@@ -1,0 +1,466 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{tikz}								%Graphzeichnen
+	\usetikzlibrary{arrows,backgrounds,trees,automata}
+\usepackage{listings}							%source code
+\begin{document}
+
+\lstset{language=Octave,
+%numbers=left,
+stepnumber=1,
+showstringspaces=false,
+escapeinside=||,
+basicstyle=\footnotesize\ttfamily,
+keywordstyle=\color{black},
+commentstyle=\color{gray},
+identifierstyle=\color{black},
+stringstyle=\color{black}
+}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 7}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 7}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+\subsection*{Teilaufgabe a)}
+\begin{align*}
+g_1(x)&= 2abx\\
+g_2(y)&=a^2-y\\
+g_3(x)&=x^2\\
+g_4(y)&=b^2y\\
+f(x)&=(g_2\circ g_1)(x) + (g_4\circ g_3)(x) \\
+&= g_a(x)+g_b(x)  \\
+&\quad\textit{ mit } g_a(x)=(g_2\circ g_1)(x) \textit{ und } g_b(x)=(g_4\circ g_3)(x)
+\end{align*}
+\begin{center}
+\begin{tikzpicture}[>=stealth,auto,node distance=1.0cm,thick,minimum size=0.2cm,inner sep=1.0pt]
+\node[draw,shape=circle,fill=blue](0){};
+\node[draw,shape=circle,fill=blue](2)[below left of=0]{};
+\node[draw,shape=circle,fill=blue](1)[below of=2]{};
+\node[draw,shape=circle,fill=blue](4)[below right of=0]{};
+\node[draw,shape=circle,fill=blue](3)[below of=4]{};
+
+\node[draw,shape=rectangle](x)[below of=1]{$x$};
+\node[draw,shape=rectangle](y)[below of=3]{$x$};
+
+\node[node distance=0.5cm](l1)[above of=0]{$f$};
+\node[node distance=0.5cm]()[left of=1]{$g_1$};
+\node[node distance=0.5cm]()[left of=2]{$g_2$};
+\node[node distance=0.5cm]()[right of=3]{$g_3$};
+\node[node distance=0.5cm]()[right of=4]{$g_4$};
+
+\path
+	(0)
+		edge [](2)
+		edge [](4)
+	(1)
+		edge [](x)
+	(2)
+		edge [](1)
+	(3)
+		edge [](y)
+	(4)
+		edge [](3)		
+;
+\end{tikzpicture}
+\end{center}
+%Alle Stabilitäten der Funktionen sind 1
+\begin{align*}
+\sigma_{g_1}=\sigma_{g_2}=\sigma_{g_3}=\sigma_{g_4}=1
+\end{align*}
+%Berechne erstmal relativen Fehler
+\begin{align*}
+\kappa_{rel_{g_2}}
+&= \kappa_{abs_{g_2}} \cdot \frac{|y|}{|g_2(y)|}\\
+&= 1 \cdot \frac{|y|}{|a^2-y|}\\
+&=\frac{|2abx_0|}{|a^2-2abx_0|} \quad\quad // y=g_1(x_0)=2abx_0\\
+&=\frac{|2bx_0|}{|a-2bx_0|}
+\end{align*}
+%Berechne Stabilität
+\begin{align*}
+\sigma_{g_2\circ g_1}
+&\le 1 + \kappa_{rel_{g_2}} \cdot \sigma_{g_1}\\
+&\le 1 + \frac{|2bx_0|}{|a-2bx_0|} \cdot 1\\
+&\le 1 + \frac{|2bx_0|}{|a-2bx_0|} 
+\end{align*}
+%Das gleiche für den anderen Zweig
+\begin{align*}
+\kappa_{rel_{g_4}}
+&= \kappa_{abs_{g_4}} \cdot \frac{|y|}{|g_4(y)|}\\
+&= |b^2| \cdot \frac{|y|}{|b^2\cdot y|}\\
+&=\frac{|b^2\cdot y|}{|b^2\cdot y|} \\
+&=1
+\end{align*}
+\begin{align*}
+\sigma_{g_4\circ g_3}
+&\le 1 + \kappa_{rel_{g_4}} \cdot \sigma_{g_3}\\
+&\le 1 + 1 \cdot 1\\
+&\le 2 
+\end{align*}
+%FRAGE: Mit der Multiplikation oder ohne????
+%\begin{align*}
+%\sigma_{f}
+%&\le 1 + \frac{|g_2\circ g_1(x_0)|+|g_4 \circ g_3 (x_0)|}{|g_2\circ g_1 (x_0) + g_4 \circ g_3 (x_0)|} \cdot \max (\sigma_{g_2\circ g_1},\sigma_{g_4\circ g_3})\\
+%&\le 1 + \frac{|a^2-2abx_0)|+|b^2x^2_0|}{|a^2-2abx_0+b^2x_0^2|} \cdot \max (1 + \frac{|2bx_0|}{|a-2bx_0|},2)
+%\end{align*}
+%ich würde sagen eheher ohne!!! so wie in der VL
+\begin{align*}
+\sigma_{f}
+&\le 1 + \max (\sigma_{g_2\circ g_1},\sigma_{g_4\circ g_3})\\
+&\le 1 + \max (1 + \frac{|2bx_0|}{|a-2bx_0|},2)
+\end{align*}
+\newpage
+\subsection*{Teilaufgabe b)}
+\begin{align*}
+h_1(x)&= bx\\
+h_2(y)&=a-y\\
+h_3(z)&=z^2\\
+h_0(x)&=h_2\circ h_1 (x)\\
+f(x)&=h3 \circ h_2 \circ h1 (x) = h_3 \circ h_0 (x)
+\end{align*}
+\begin{center}
+\begin{tikzpicture}[>=stealth,auto,node distance=1.0cm,thick,minimum size=0.2cm,inner sep=1.0pt]
+\node[draw,shape=circle,fill=blue](0){};
+\node[draw,shape=circle,fill=blue](3)[below of=0]{};
+\node[draw,shape=circle,fill=blue](2)[below of=3]{};
+\node[draw,shape=circle,fill=blue](1)[below of=2]{};
+
+\node[draw,shape=rectangle](x)[below of=1]{$x$};
+
+\node[node distance=0.5cm](l1)[above of=0]{$f$};
+\node[node distance=0.5cm]()[right of=1]{$h_1$};
+\node[node distance=0.5cm]()[right of=2]{$h_2$};
+\node[node distance=0.5cm]()[right of=3]{$h_3$};
+
+\path
+	(0)
+		edge [](3)
+	(1)
+		edge [](x)
+	(2)
+		edge [](1)
+	(3)
+		edge [](2)
+;
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+\sigma_{h_1}=\sigma_{h_2}=\sigma_{h_3}=1
+\end{align*}
+\begin{align*}
+\kappa_{abs_{h_2}} &= |h'_2(y)|=1
+\end{align*}
+\begin{align*}
+\kappa_{rel_{h_2}}
+&= \kappa_{abs_{h_2}} \cdot \frac{|y|}{|h_2(y)|}\\
+&= 1 \cdot \frac{|y|}{|a-y|}\\
+&=\frac{|bx_0|}{|a-bx_0|} \quad\quad // y=h_1(x_0)=bx_0
+\end{align*}
+\begin{align*}
+\sigma_{h_0}=\sigma_{h_2\circ h_1}
+&\le 1 + \kappa_{rel_{h_2}} \cdot \sigma_{h_1}\\
+&\le 1 + \frac{|bx_0|}{|a-bx_0|} \cdot 1\\
+&\le 1 + \frac{|bx_0|}{|a-bx_0|} 
+\end{align*}
+\begin{align*}
+\kappa_{rel_{h_3}}
+&= \kappa_{abs_{h_3}} \cdot \frac{|z|}{|h_3(z)|}\\
+&= |2\cdot z| \cdot \frac{|z|}{|z^2|}\\
+&= 2\cdot |z| \cdot \frac{1}{|z|}\\
+&= \frac{2\cdot |z|}{|z|}\\
+&= 2
+\end{align*}
+\begin{align*}
+\sigma_{f}=\sigma_{h_3\circ h_0}
+&\le 1 + \kappa_{rel_{h_3}} \cdot \sigma_{h_0}\\
+&\le 1 + 2 \cdot (1 + \frac{|bx_0|}{|a-bx_0|})\\
+&\le 1 +  2 + 2 \cdot\frac{|bx_0|}{|a-bx_0|}\\
+&\le 3 + 2 \cdot\frac{|bx_0|}{|a-bx_0|} 
+\end{align*}
+\newpage
+
+\section*{Aufgabe 2}
+Gegeben:
+\begin{align*}
+f(x)=\frac{x^8-1}{x^4-1}=\frac{g_2(g_1(x))}{g_2(g_3(x))} , \quad\quad
+g_1(x)=x^8, \quad g_2(y)=y-1, \quad g_3(x)=x^4 
+\end{align*}
+\subsection*{Teilaufgabe a)}
+Sei $g_a(x)= g_2(g_1(x))$ und $g_b(x)=g_2(g_3(x))$ $\Longrightarrow$ es folgt: $f(x)= \frac{g_a(x)}{g_b(x)}$\\
+\begin{center}
+\begin{tikzpicture}[>=stealth,auto,node distance=1.0cm,thick,minimum size=0.2cm,inner sep=1.0pt]
+\node[draw,shape=circle,fill=blue](0){};
+\node[draw,shape=circle,fill=blue](2)[below left of=0]{};
+\node[draw,shape=circle,fill=blue](1)[below of=2]{};
+\node[draw,shape=circle,fill=blue](4)[below right of=0]{};
+\node[draw,shape=circle,fill=blue](3)[below of=4]{};
+
+\node[draw,shape=rectangle](x)[below of=1]{$x$};
+\node[draw,shape=rectangle](y)[below of=3]{$x$};
+
+\node[node distance=0.5cm](l1)[above of=0]{$f$};
+\node[node distance=0.5cm]()[left of=1]{$g_1$};
+\node[node distance=0.5cm]()[left of=2]{$g_2$};
+\node[node distance=0.5cm]()[right of=3]{$g_3$};
+\node[node distance=0.5cm]()[right of=4]{$g_2$};
+
+\path
+	(0)
+		edge [](2)
+		edge [](4)
+	(1)
+		edge [](x)
+	(2)
+		edge [](1)
+	(3)
+		edge [](y)
+	(4)
+		edge [](3)		
+;
+\end{tikzpicture}
+\end{center}
+%Alle Stabilitäten der Funktionen sind 1
+\begin{align*}
+\sigma_{g_1}=\sigma_{g_2}=\sigma_{g_3}=1
+\end{align*}
+%Berechne erstmal relativen Fehler von g_2. Lasse das y noch stehen, da wir das dann allgemeiner haben!
+\begin{align*}
+\kappa_{rel_{g_2}}
+&= \kappa_{abs_{g_2}} \cdot \frac{|y|}{|g_2(y)|}\\
+&= 1 \cdot \frac{|y|}{|y-1|}\quad\quad // y=g_1(x_0)=x_0^8 \textit{ bzw. } y=g_1(x_0)=x_0^4
+\end{align*}
+%Berechne Stabilität vom 1. Zweig
+\begin{align*}
+\sigma_{g_2\circ g_1}
+&\le 1 + \kappa_{rel_{g_2}} \cdot \sigma_{g_1}\\
+&\le 1 + \frac{|y|}{|y-1|} \cdot 1 \quad\quad // y=g_1(x_0)=x_0^8\\
+&\le 1 + \frac{|x_0^8|}{|x_0^8-1|} 
+\end{align*}
+%Berechne Stabilität vom 1. Zweig
+\begin{align*}
+\sigma_{g_2\circ g_3}
+&\le 1 + \kappa_{rel_{g_2}} \cdot \sigma_{g_3}\\
+&\le 1 + \frac{|y|}{|y-1|} \cdot 1 \quad\quad // y=g_1(x_0)=x_0^4\\
+&\le 1 + \frac{|x_0^4|}{|x_0^4-1|}
+\end{align*}
+\begin{align*}
+\sigma_{f}
+&\le 1 +\kappa_{DIV} \max (\sigma_{g_2\circ g_1},\sigma_{g_2\circ g_3})\\
+&\le 1 + 2\cdot \max \left(1 + \frac{|x_0^8|}{|x_0^8-1|},1 + \frac{|x_0^4|}{|x_0^4-1|}\right)\\
+&\le 1  + \max \left(2 + 2\cdot\frac{|x_0^8|}{|x_0^8-1|},2 + 2\cdot\frac{|x_0^4|}{|x_0^4-1|}\right)\\
+&\le 1 + 2+ \max \left(\frac{ 2\cdot|x_0^8|}{|x_0^8-1|}, \frac{2\cdot|x_0^4|}{|x_0^4-1|}\right)\\
+&\le 3+ \max \left( \frac{ 2\cdot|x_0^8|}{|x_0^8-1|}, \frac{2\cdot|x_0^4|}{|x_0^4-1|}\right)
+\end{align*}
+Die letzten Umformungen sind gültig, da es sich um lineare Umformungen handelt. Die Ordnung der Werte werden linear verändert, d.h. $\max(x+1,y+1)$ und $x+1$ ist das Maximum, dann ist es auch $x$ in $\max (x,y)+1$. \\
+Analog auch bei der Multiplikation mit einer Konstante $a$.
+\subsection*{Teilaufgabe b)}
+Bei der Grenzwertbildung mit $x \rightarrow 1$ müsste der Grenzwert über $\frac{0}{0}$ gebildet werden!\\
+Deswegen: Verwende Satz von L'Hospital
+\begin{align*}
+\lim_{x \rightarrow 1} f &= \lim_{x \rightarrow 1} \frac{x^8-1}{x^4-1} =\lim_{x \rightarrow 1}\frac{8 \cdot x^7}{4 \cdot x^3}=2
+\end{align*}
+Für die Stabilität ergibt sich aber:
+\begin{align*}
+\lim_{x \rightarrow 1} \sigma_{f} 
+&= \lim_{x \rightarrow 1} (3+ \max \left( \frac{ 2\cdot|x^8|}{|x^8-1|}, \frac{2\cdot|x^4|}{|x^4-1|}\right )) \\
+&= \lim_{x \rightarrow 1} 3+\lim_{x \rightarrow 1} \max \left( \frac{ 2\cdot|x^8|}{|x^8-1|}, \frac{2\cdot|x^4|}{|x^4-1|}\right) \\
+&= 3+ \lim_{x \rightarrow 1}\max \left( \frac{ 2\cdot|1^8|}{|1^8-1|}, \frac{2\cdot|1^4|}{|1^4-1|}\right)\\
+&= 3+ \lim_{x \rightarrow 1}\max \left( \frac{ 2\cdot|1^8|}{|0|}, \frac{2\cdot|1^4|}{|0|}\right)\\
+&= \infty
+\end{align*}
+\subsection*{Teilaufgabe c)}
+Die Schwäche des obigen Terms ist die Definitionslücke bei $|x|=1$. Denn in diesem Fall würde man durch $0$ dividieren, was nicht definiert ist!(mit Ausnahmen $\frac{0}{0}=1$, wenn man das definieren will)\\
+Somit ist unser Ziel nun einen äquivalenten Term zu finden, der für den gesamten Wertebereich gilt.\\
+\begin{align*}
+f(x)=\frac{x^8-1}{x^4-1} 
+\end{align*}
+Sei die 3. Binomische Formel wie folgt gegeben: $(a+b)(a-b)=a^2-b^2$.\\
+Wir können den obigen Term wie folgt umformen:
+\begin{align*}
+f(x)
+&=\frac{x^8-1}{x^4-1}\\ 
+&=\frac{x^{4\cdot 2}-1}{x^4-1}\\
+&=\frac{(x^{4})^2-1^2}{x^4-1}\\
+&=\frac{(x^{4}-1)\cdot (x^4+1)}{x^4-1}\\
+f(x)&=x^4+1
+\end{align*}
+$f(x)$ kann dabei in folgende Elementarfunktionen zerlegt werden: \begin{align*}
+f(x)=x^4+1= h_2\circ h_1 (x) \quad h_1(x)=x^4,\quad  h_2(y)=y+1 
+\end{align*}
+Die relative Stabilität dieses Terms kann wie folgt berechnet werden:
+\begin{align*}
+\sigma_{h_1}=\sigma_{h_2}=1
+\end{align*}
+\begin{align*}
+\kappa_{rel_{h_2}}
+&= \kappa_{abs_{h_2}} \cdot \frac{|y|}{|h_2(y)|}\\
+&= 1 \cdot \frac{|y|}{|y+1|}\quad\quad // y=h_1(x_0)=x_0^4 \\
+&= 1 \cdot \frac{|x_0^4|}{|x_0^4+1|}\\
+&= \frac{|x_0^4|}{|x_0^4+1|}
+\end{align*}
+%Berechne Stabilität vom 1. Zweig
+\begin{align*}
+\sigma_{f}
+&\le 1 + \kappa_{rel_{h_2}} \cdot \sigma_{h_1}
+= 1 + \frac{|x_0^4|}{|x_0^4+1|} \cdot 1 
+= 1 + \frac{|x_0^4|}{|x_0^4+1|} 
+= 1 +\left|\frac{(x_0^4+1)-1)}{x_0^4+1}\right| \le 1+ \left| \frac{x_0^4+1}{x_0^4+1}\right| +1
+\end{align*}
+\newpage
+\section*{Aufgabe 3}
+\subsection*{Teilaufgabe a)}
+\begin{lstlisting}
+stichprobe=randn(10000,1)+500; 
+\end{lstlisting}
+Auf die Ausgabe des Vektors wird an dieser Stelle verzichtet (Papierverschwendung).
+\subsection*{Teilaufgabe b)}
+\begin{lstlisting}
+% Mittelwert berechnen
+function erg = mittelwert(x)
+	
+    n=size(x,1);
+	erg = (1/n)*sum(x,1);
+
+end
+
+% Varianz mit Standartformel
+function erg = stichprobenVarStandart(x)
+
+    n=size(x,1);
+	erg = sum((x-mittelwert(x)).^2,1)/(n-1);
+
+end
+
+% Varianz mit Verschiebungssatz bzw. Satz von Steiner
+function erg = stichprobenVarSteiner(x)
+
+	n=size(x,1);
+	erg = (sum((x.^2),1)-(n*(mittelwert(x)^2)))/(n-1);
+    
+end
+\end{lstlisting}
+\underline{\textbf{Ausgabe:}}\\
+\begin{lstlisting}
+>>>S_1 =  1.0237
+>>>S_2 =  1.0237
+\end{lstlisting}
+\subsection*{Teilaufgabe c)}
+Da beide Funktionen das selbe Ergebnis liefern (und auch die Octave-eigene Varianzfunktion das selbe Ergebnis erzeugt), scheinen beide Funktionen gleich gut zu sein.\\
+Dennoch würde ich eher die 2. Variante mit dem Satz von Steiner empfehlen, da diese weniger stabilitätskritsische Berechnungen und generell auch weniger Operationen durchführt.\\
+Wir können folgende Elementarfunktionen definieren:
+\begin{align*}
+g_1(x)&= \frac{x}{n-1}\\
+g_2(x)&=\sum_{i=1}^n x_i\\
+g_3(x,y)&= x-y\\
+g_4(x)&=x^2\\
+g_5(x) &= n*x
+\end{align*}
+Sei an dieser stelle angenommen, dass $\overline{x}$ eine von $x$ abhängige, aber in der jeweiligen Ausführung konstante Variable ist, da sie nur einmal Berechnet werden muss und danach nicht mehr verändert wird.
+\begin{center}
+\begin{tikzpicture}[>=stealth,auto,node distance=1.0cm,thick,minimum size=0.2cm,inner sep=1.0pt]
+\node[draw,shape=circle,fill=blue](0){};
+\node[draw,shape=circle,fill=blue](1)[below of=0]{};
+\node[draw,shape=circle,fill=blue](2)[below of=1]{};
+\node[draw,shape=circle,fill=blue](3)[below of=2]{};
+
+\node[draw,shape=rectangle](x)[below left of=3]{$x$};
+\node[draw,shape=rectangle](y)[below right of=3]{$\overline{x}$};
+
+\node[node distance=0.5cm](l1)[above of=0]{$S^2_a$};
+\node[node distance=0.5cm]()[right of=0]{$g_1$};
+\node[node distance=0.5cm]()[right of=1]{$g_2$};
+\node[node distance=0.5cm]()[right of=2]{$g_4$};
+\node[node distance=0.5cm]()[right of=3]{$g_3$};
+
+\path
+	(0)
+		edge [](3)
+	(1)
+		edge [](2)
+	(2)
+		edge [](3)
+	(3)
+		edge [](x)
+		edge [](y)
+;
+\end{tikzpicture} \hfill
+\begin{tikzpicture}[>=stealth,auto,node distance=1.0cm,thick,minimum size=0.2cm,inner sep=1.0pt]
+\node[draw,shape=circle,fill=blue](0){};
+\node[draw,shape=circle,fill=blue](1)[below of=0]{};
+\node[draw,shape=circle,fill=blue](2)[below left of=1]{};
+\node[draw,shape=circle,fill=blue](3)[below right of=1]{};
+\node[draw,shape=circle,fill=blue](4)[below of=2]{};
+\node[draw,shape=circle,fill=blue](5)[below of=3]{};
+
+\node[draw,shape=rectangle](x)[below of=4]{$x$};
+\node[draw,shape=rectangle](y)[below of=5]{$\overline{x}$};
+
+\node[node distance=0.5cm](l1)[above of=0]{$S^2_b$};
+\node[node distance=0.5cm]()[right of=0]{$g_1$};
+\node[node distance=0.5cm]()[right of=1]{$g_3$};
+\node[node distance=0.5cm]()[left of=2]{$g_2$};
+\node[node distance=0.5cm]()[right of=3]{$g_5$};
+\node[node distance=0.5cm]()[left of=4]{$g_4$};
+\node[node distance=0.5cm]()[right of=5]{$g_4$};
+
+\path
+	(0)
+		edge [](1)
+	(1)
+		edge [](2)
+		edge [](3)
+	(2)
+		edge [](4)
+	(3)
+		edge [](5)
+	(4)
+		edge [](x)
+	(5)
+		edge [](y)
+;
+\end{tikzpicture}
+\end{center}
+Es scheint nach der obigen Abbildung, dass Variante $S^2_a$ die bessere ist. Schließlich wird die schlecht konditionierte Subtraktion als erstes ausgeführt. Wenn man aber genauer hinschaut, erkennt man aber, dass die Summenbildung ein iterativer Prozess ist (es muss jedes Element der Summe mindestens ein Mal betrachtet werden; hier: $(x_i-\overline{x})^2$ ). Das bedeutet aber, dass in jedem Schritt der Summenbildung der Term $x_i-\overline{x}$ berechnet werden muss. Da nun $\overline{x}$ ein zu $x_i$ mehr oder weniger ähnlicher Wert ist, ist diese Subtraktion sehr schlecht konditioniert und der Fehler wird durch die Summenbildung aufsummiert.\\
+Bei Variante $S^2_b$ muss zwar auch Subtrahiert werden, aber dafür nur ein einziges Mal! Außerdem ist die Wahrscheilichkeit, dass nun $\sum_{i=1}^n x_i^2$ und $n\overline{x}^2$ verschiedener sind größer (aufgrund der Quadrierung!).\\
+Dadurch verschlechtert sich die Kondition nicht so stark und der Algorithmus läuft stabiler.\\
+\\
+Im Endeffekt ist es egal welche der beiden Methoden die Gusto AG verwendet, da es keine so genaue (und bezahlbaren) Messverfahren für die Messung der Spaghetti-Länge gibt, so dass sich eine der beiden Funktionen "verrechnet" (Messgenauigkeit).\\
+Aber in anderen Anwendungsbeispielen, wie der Finanzmathematik, ist eine solche Betrachtung sinnvoll.
+\end{document}

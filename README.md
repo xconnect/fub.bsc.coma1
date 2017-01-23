@@ -1,2 +1,2 @@
-# fub.bsc.coma1
-Computerorientierte Mathematik 1
+# CoMa
+Computerorientierte Mathematik I

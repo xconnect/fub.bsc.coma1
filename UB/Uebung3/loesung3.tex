@@ -1,0 +1,205 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 3}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 3}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+F\"ur die durchgef\"uhrte Rechnung gilt:
+\begin{align*}
+                X &= \left( \begin{matrix} 1 & 181 & 40\\1 & 175 & 65\\1 & 180 & 50\\1 & 170 & 25\\1 & 178 & 48 \\ 1 & 182 & 52\\1 & 185 & 36\\ 1 & 170 & 60\end{matrix} \right) \\
+(X' \cdot X)^{-1} &= \left( \begin{matrix} 154.8644 & -0.8504 & -0.0786 \\ -0.8504 & 0.0047 & 0.0002 \\ -0.0786 & 0.0002 & 0.0009 \end{matrix} \right) \\
+(X' \cdot X)^{-1} &\neq \left( \begin{matrix}154.86 & -0.85 & -0.08\\-0.85 & 0.005 & 0.0002\\-0.08 & 0.0002 & 0.0008\end{matrix} \right)
+\end{align*}
+Die Frage \glqq Wer hat Recht?\grqq kann nicht eindeutig beantwortet werden.
+\begin{itemize}
+\item[1)] Der Rechenweg beider Parteien ist korrekt.
+\item[2)] Beide Parteien sind aufgrund unterschiedlicher Daten zu unterschiedlichen Ergebnissen gekommen.
+\end{itemize}
+
+\newpage
+
+\section*{Aufgabe 2}
+
+\subsection*{Teilaufgabe a)}
+
+\begin{verbatim}
+function erg=runden(x,L)
+
+   shift_counter = 0; % bestimmt die Richtung des Verschiebens
+   x_is_neg = 1; 	  % Initialisierung des "x ist Negativ"-Flags,
+                      % wenn x positiv --> x_is_neg = 1 oder
+                      % x negativ --> x_is_neg = -1.
+                      % Wird dann spaeter mit dem Ergebnis multipliziert.
+
+   % Schritt 0: Pruefe ob x negativ ist, wenn ja, dann mache x positiv
+   %            und merke, dass sie mal negativ war
+   if (x<0)
+      x=x*-1;
+      x_is_neg=-1;	
+   end
+
+   % Schritt 1: Bits shiften bis Mantissen-Normalform
+   if (x>1)                      % Bsp.: 12.3 --> 0.123
+      while (x>1)
+         x = x/10;
+         shift_counter = shift_counter + 1;
+      end
+   else                          % Bsp.: 0.00123 --> 0.123
+      while (x>0 && x<0.1)
+         x = x*10;
+         shift_counter = shift_counter - 1;
+      end		
+   end
+   
+   % Schritt 3: Shifte die von x bleibenden Ziffern in den ganzzahligen
+   %            Bereich, so dass L=3: 0.1234 --> 123.4
+   x=x*10^L;
+
+   % Schritt 4.1: finde eine annaehernde ganzzahlige Darstellung von x
+   %              (Nachkommastellen abschneiden)
+   k=0;	
+   while(k<x-1)
+       k=k+1;
+   end
+   
+   % Schritt 4.2: finde den Rest von x
+   rest=x-k;
+ 	
+   % Schritt 5: schaue, ob gerundet werden muss
+   if(rest >=0.5)
+      k=k+1;
+   end;
+ 	
+   % Schritt 6.1: mache alle Shifts rueckgaengig
+   erg=k*10^(-L)*10^(shift_counter);
+ 	
+   % Schritt 6.2: wenn x negativ war,
+   %              dann ist in x_is_neg = -1,
+   %              sonst x_is_neg = 1
+   erg=erg*x_is_neg;
+
+end %eof
+\end{verbatim}
+\newpage
+
+\subsection*{Teilaufgabe b)}
+Die Besser Darstellung ist $(a+b)^2$
+\begin{verbatim}
+function erg=taschenrechner(L,x,y,op)
+   
+   % Schritt 0: runden der Eingabeparmeter
+   x=runden(x,L);
+   y=runden(y,L);
+	
+   % Schritt 1: welche Rechenoperation
+   switch (op)
+      
+      % case 1 = case '+' (Addition)
+      case 0
+         erg = runden(x+y,L);
+      case '+'
+         erg = runden(x+y,L);
+
+      % case 1 = case '-' (Subtraktion)
+      case 1
+         erg = runden(x-y,L);
+      case '-'
+         erg = runden(x-y,L);
+		
+      % case 2 = case '*' (Multiplikation)
+      case 2
+         erg = runden(x*y,L);
+      case '*'
+         erg = runden(x*y,L);
+
+      % case 3 = case '/' (Division)
+      case 3	
+         erg = runden(x/y,L);
+      case '/'	
+         erg = runden(x/y,L);
+		
+      % sonst unbekannte Rechenoperation
+      otherwise
+         error('Unknown operator!')
+   end
+end
+\end{verbatim}
+\newpage
+
+\section*{Aufgabe 3}
+
+\subsection*{Teilaufgabe a)}
+
+\begin{align*}
+x &= 4,7 \\
+y &= 5,6 \\
+x + y &= z \\
+z &= 10,3 \\
+rd(x) &= 5 \\
+rd(y) &= 6 \\
+rd(z) &= 10 \\
+rd(x) + rd(y) &= 11 \\
+10 &\neq 11 \\
+&\lightning\\
+\\
+(1) &\nRightarrow (2)
+\end{align*}
+
+\subsection*{Teilaufgabe b)}
+
+\begin{align*}
+x+y = s &\Rightarrow |rd(x) + rd(y) - rd(s)| \leq 4 \cdot |rd(s)| \cdot eps \\
+        &\Rightarrow | x \cdot (1+\epsilon_x) + y \cdot (1+\epsilon_y) - s \cdot (1+\epsilon_z) | \leq 4 \cdot |s \cdot (1+\epsilon_s)| \cdot \frac{1}{2} \\
+        &\Rightarrow | x \cdot (1+\frac{1}{2}) + y \cdot (1+\frac{1}{2}) - s \cdot (1+\frac{1}{2}) | \leq 4 \cdot |s \cdot (1+\frac{1}{2})| \cdot \frac{1}{2} \\
+        &\Rightarrow | \frac{3}{2} (x+y-s) | \leq 2 \cdot | \frac{3}{2} \cdot s| \\
+        &\Rightarrow \frac{3}{2} \cdot | (x+y-s) | \leq \frac{3}{2} \cdot 2 \cdot |s| \\
+        &\Rightarrow | (x+y-s) | \leq 2 \cdot |s| \\
+        &\Rightarrow | (x+y-(x+y)) | \leq 2 \cdot |s| \\
+        &\Rightarrow 0 \leq 2 \cdot |s| \\
+        &\Rightarrow 0 \leq |s| \\
+        \\
+        (1) &\Rightarrow (3)
+\end{align*}
+$\hfill \square$
+\end{document}

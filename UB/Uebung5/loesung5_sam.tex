@@ -1,0 +1,203 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 5}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 5}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+\subsection*{Teilaufgabe a)}
+z.z.: $\kappa_{abs}(f,x)\le \kappa_{abs}(g,x) + \kappa_{abs}(h,x) $ mit $f=g+h$\\
+Aus der VL ist bekannt für $\kappa_{abs}(f,x)$:\\
+\begin{align*}
+|f(x_0)-f(x)| &\le \kappa_{abs}(f,x) \cdot |x_0-x| \\
+\frac{|f(x_0)-f(x)|}{|x_0-x|} &\le \kappa_{abs}(f,x)\\
+\limsup_{x \rightarrow x_0} \frac{|f(x_0)-f(x)|}{|x_0-x|} &= \kappa_{abs}(f,x)\\
+\end{align*}
+Analog gilt die absolute Konditionen für $g$ und $h$ mit:\\
+\begin{align*}
+\kappa_{abs}(g,x)&=\limsup_{x \rightarrow x_0} \frac{|g(x_0)-g(x)|}{|x_0-x|} \\
+\kappa_{abs}(h,x)&=\limsup_{x \rightarrow x_0} \frac{|h(x_0)-h(x)|}{|x_0-x|} \\
+\end{align*}
+Setze nun $f=g+h$ in  $\kappa_{abs}(f,x)$ $\Rightarrow \kappa_{abs}(f,x) = \kappa_{abs}(g+h,x)$
+\begin{align*}
+\kappa_{abs}(f,x)&= \limsup_{x \rightarrow x_0} \frac{|f(x_0)-f(x)|}{|x_0-x|} \\
+\kappa_{abs}(f,x)&= \limsup_{x \rightarrow x_0} \frac{|(g(x_0)+h(x_0))-(g(x)+h(x)|}{|x_0-x|} \\
+\kappa_{abs}(f,x)&= \limsup_{x \rightarrow x_0} \frac{|(g(x_0)-g(x))+(h(x_0)-h(x)|}{|x_0-x|} \\
+\end{align*}
+Wir nutzen nun die Subadditivität von $\limsup$ definiert als:
+\begin{align*}
+\limsup (x\pm y) \le \limsup x \pm \limsup y
+\end{align*}
+\begin{align*}
+\kappa_{abs}(f,x)&\le \limsup_{x \rightarrow x_0} \frac{|(g(x_0)-g(x))|}{|x_0-x|}+\limsup_{x \rightarrow x_0} \frac{|(h(x_0)-h(x)|}{|x_0-x|} \\
+\end{align*}
+Es ist ersichtlich, dass die beiden Summanden jeweils den Werten für $\kappa_{abs}(g,x)$ und $\kappa_{abs}(h,x)$ entsprechen.\\
+Es folgt:\\
+\begin{align*}
+\kappa_{abs}(f,x)&\le \kappa_{abs}(h,x)+\kappa_{abs}(g,x) \\
+\end{align*} \hfill $\square$\\
+Bemerkung:\\ Das Auseinanderziehen der Beträge gilt, da wir 1. diese Teilbeträge Addieren (können nicht negativ werden) und wir eine Abschätzung machen. Dieser Wert ist min gleichgroß bis größer als der vorherige.
+
+\subsection*{Teilaufgabe b)}
+Gesucht: $\kappa_{abs}(f,x)$ und $\kappa_{rel}(f,x)$ mit $f(x)= x^5 + |x^3|$\\
+Seien nun $g(x)=x^5$ und $h(x)=|x^3|$ und $f(x)=g(x)+h(x)$.\\
+$g(x)$ und $h(x)$ sind differenzierbar. Somit können wir mit Hilfe der Ableitung die absolute Konditionen berechnen.\\
+Seinen:
+\begin{align*}
+g(x)&=x^5  &\Rightarrow \quad g'(x)&= 5x^4\\
+h(x)&=|x^3|  &\Rightarrow \quad h'(x)&= 3x|x| 
+\end{align*}
+Somit erhalten wir folgende absolute und relativen Konditionen:\\
+\begin{align*}
+\kappa_{abs}(g,x) &=|g'(x_0)| &= |5x_0^4| \\
+\kappa_{abs}(h,x) &=|h'(x_0)| &= |3x_0|x_0|| = |3x_0^2| \\
+\kappa_{rel}(g,x) &= \frac{|x_0|}{|g(x_0)|}\cdot\kappa_{abs}(g,x)  &= \frac{|x_0|}{|x_0^5|}\cdot|5x_0^4| = 5\\
+\kappa_{rel}(h,x) &=\frac{|x_0|}{|h(x_0)|}\cdot\kappa_{abs}(h,x)  &= \frac{|x_0|}{||x_0^3||}\cdot|3x_0^2| = 3
+\end{align*}
+Nach UB5-A1-a) gilt nun: 
+
+$\kappa_{abs}(f,x)\le \kappa_{abs}(g,x) + \kappa_{abs}(h,x) $\\\\
+Es folgt:\\
+\begin{align*}
+\kappa_{abs}(f,x)\le |5x_0^4| + |3x_0^2|
+\end{align*}
+Es folgt weiter für die relative Kondition:
+\begin{align*}
+\kappa_{rel}(f,x) &= \frac{|x_0|}{|f(x_0)|}\cdot\kappa_{abs}(f,x)\\ 
+&= \frac{|x_0|}{|g(x_0)+h(x_0)|}\cdot\kappa_{abs}(f,x)\\
+&\le  \frac{|x_0|}{|x_0^5+|x_0^3||}\cdot (|5x_0^4| + |3x_0^2|)\\
+&\le  \frac{|5x_0^5| + |3x_0^3|}{|x_0^5+|x_0^3||}\\
+&\le  \frac{5|x_0|^5 + 3|x_0|^3}{|x_0^5+|x_0|^3|}\\
+&\le  \frac{|x_0|^3(5|x_0|^2 + 3)}{|x_0|^3\cdot|x_0^2+1|}\\
+&\le  \frac{(5|x_0|^2 + 3)}{|x_0^2+1|}\\
+\end{align*}  
+\subsection*{Teilaufgabe c)}
+Gesucht: $\kappa_{abs}(f,x)$ und $\kappa_{rel}(f,x)$ mit $f(x)= \sin^2(x) + \cos^2(x)$\\
+Seien nun $g(x)=\sin^2(x)$ und $h(x)=\cos^2(x)$.\\
+Bereits aus der Schule ist bekannt, dass $\cos$ und $\sin$ differenzierbar sind und für ein beliebiges $x \in \mathbb{R}$ gilt $f(x)= \sin^2(x) + \cos^2(x)=1$.\\
+Seien nun folgende Ableitungen gegeben:
+\begin{align*}
+g(x)&=\sin^2(x)  &\Rightarrow \quad g'(x)&= 2\sin(x)\cos(x) &=\sin(2x)\\
+h(x)&=\cos^2(x)  &\Rightarrow \quad h'(x)&= -2\sin(x)\cos(x) &=-\sin(2x)
+\end{align*}
+Damit erhalten wir folgende absoluten Konditionen für $g(x)$ und $h(x)$:\\
+\begin{align*}
+\kappa_{abs}(g,x) &=|g'(x_0)| &= |\sin(2x_0)| \\
+\kappa_{abs}(h,x) &=|h'(x_0)| &= |-\sin(2x_0)| \\
+\kappa_{rel}(g,x) &= \frac{|x_0|}{|g(x_0)|}\cdot\kappa_{abs}(g,x)  &= \frac{|x_0|}{|sin^2(x_0)|}\cdot|2\sin(x_0)\cos(x_0)| = \frac{|x_0|}{|sin(x_0)|}\cdot|2\cos(x_0)|\\
+\kappa_{rel}(h,x) &=\frac{|x_0|}{|h(x_0)|}\cdot\kappa_{abs}(h,x)  &= \frac{|x_0|}{|\cos^2(x_0)|}\cdot|-2\sin(x_0)\cos(x_0)| = \frac{|x_0|}{|\cos(x_0)|}\cdot|-2\sin(x_0)|
+\end{align*}
+Nach UB5-A1-a) gilt nun: 
+
+$\kappa_{abs}(f,x)\le \kappa_{abs}(g,x) + \kappa_{abs}(h,x) $\\\\
+Es folgt:\\
+\begin{align*}
+\kappa_{abs}(f,x)\le |\sin(2x_0)| + |-\sin(2x_0)| = 2|\sin(2x_0)|  \text{ ; denn } |-x|=x=|x|
+\end{align*}
+
+
+Für die relative Kondition gilt somit:
+\begin{align*}
+\kappa_{rel}(f,x) &= \frac{|x_0|}{|f(x_0)|}\cdot\kappa_{abs}(f,x)\\ 
+&= \frac{|x_0|}{|g(x_0)+h(x_0)|}\cdot\kappa_{abs}(f,x)\\
+&\le  \frac{|x_0|}{|\sin^2(x)+\cos^2(x)|}\cdot (2|\sin(2x_0)|)\\
+&\le  \frac{|x_0|}{1}\cdot (2|\sin(2x_0)|)\\
+&\le  |x_0|\cdot 2|\sin(2x_0)|\\
+\end{align*} 
+Berechnung der Konditionen mit $x=0$:
+
+$\Rightarrow \kappa_{abs}$ 
+\begin{align*}
+\kappa_{abs}(f,x)&\le  2|\sin(2x_0)|\\  
+\kappa_{abs}(f,0)&\le  2|\sin(2\cdot 0)|\\
+&\le  2|0|\\
+&\le  0
+\end{align*}
+
+$\Rightarrow \kappa_{rel}$ 
+\begin{align*}
+\kappa_{rel}(f,x) &\le  |x_0|\cdot 2|\sin(2x_0)|\\ 
+\kappa_{rel}(f,0) &\le  |0|\cdot 2|\sin(2\cdot 0)|\\
+ &\le  0\\
+\end{align*}
+Nach obiger Regel $\cos^2(x)+sin^2(x)=1$ kann sogar recht einfach der genaue Wert für die relative und absolute Kondition berechnet werden:\\
+\begin{align*}
+\kappa_{abs}(f,x) &= |f'(x_0)| &= 0  \\ 
+\kappa_{rel}(f,0) &=\frac{|x_0|}{|f(x_0)|}\cdot\kappa_{abs}(f,x) &=  \frac{|x_0|}{1}\cdot 0 =0\\
+\end{align*}
+Daraus lässt sich nun folgern, dass unsere obige Abschätzung scharf ist.\\
+Suche ein $x$, für die unsere Abschätzung unscharf ist!\\
+Wähle $ x=\frac{\pi}{12}$:
+
+$\Rightarrow \kappa_{abs}$ 
+\begin{align*}
+\kappa_{abs}(f,x)&\le |\sin(2x_0)| + |-\sin(2x_0)| = 2|\sin(2x_0)|\\  
+\kappa_{abs}(f,\frac{\pi}{12})&\le  2|\sin(2\cdot \frac{\pi}{12})|\\
+&\le  2|\sin( \frac{\pi}{6})|\\
+&\le  2|\frac{1}{2}|\\
+&\le  1\\
+\end{align*}
+
+$\Rightarrow \kappa_{rel}$ 
+\begin{align*}
+\kappa_{rel}(f,x) &\le  |x_0|\cdot 2|\sin(2x_0)|\\ 
+\kappa_{rel}(f,\frac{\pi}{12}) &\le  |\frac{\pi}{12}|\cdot 2|\sin(2\cdot \frac{\pi}{12})|\\
+&\le  |\frac{\pi}{12}|\cdot 2|\sin(\frac{\pi}{6})|\\
+&\le  |\frac{\pi}{12}|\cdot 2|\frac{1}{2}|\\
+&\le  |\frac{\pi}{12}|\\
+\end{align*} \hfill $\square$\\
+\newpage
+\section*{Aufgabe 2}
+
+\subsection*{Teilaufgabe a)}
+\subsection*{Teilaufgabe b)}
+\subsection*{Teilaufgabe c)}
+\subsection*{Teilaufgabe d)}
+
+\section*{Aufgabe 3}
+\subsection*{Teilaufgabe a)}
+\subsection*{Teilaufgabe b)}
+
+
+\end{document}

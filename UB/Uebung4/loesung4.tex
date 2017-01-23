@@ -1,0 +1,108 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 4}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 4}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+\subsection*{Teilaufgabe i)}
+
+Direkter Beweis:
+\begin{align*}
+f(x) &\in o(x) \\
+g(x) &\in o(x) \\
+\\
+z.z.: f(x) + g(x) = h_1(x) &\in o(x) \\
+lim_{x \rightarrow 0} \frac{f(x) + g(x)}{x} &= 0 \\
+lim_{x \rightarrow 0} \frac{f(x)}{x} + lim_{x \rightarrow 0} \frac{g(x)}{x} &= 0 \\
+0 + 0 &= 0 &\hfill \square
+\end{align*}
+Gegenbeispiel: sei $f(x) = x^3$, $g(x) = x^2$
+\begin{align*}
+z.z.: f(x) \cdot \frac{1}{g(x)} = h_2(x) &\in o(x) \\lim_{x \rightarrow 0} \left( \dfrac{\frac{f(x)}{g(x)}}{x} \right) &= 0 \\
+lim_{x \rightarrow 0} \left( \frac{x^3}{x^2 \cdot x} \right) &= 0 \\
+lim_{x \rightarrow 0} \left( 1 \right) &= 0 \\
+1 &= 0 &\hfill \lightning
+\end{align*}
+Direkter Beweis:
+\begin{align*}
+z.z.: f(x) \cdot g(x) = h_3(x) &\in o(x) \\
+lim_{x \rightarrow 0} \frac{f(x) \cdot g(x)}{x} &= 0 \\
+lim_{x \rightarrow 0} \frac{f(x)}{x} \cdot lim_{x \rightarrow 0} \frac{g(x)}{1} &= 0 \\
+lim_{x \rightarrow 0} \frac{f(x)}{x} \cdot lim_{x \rightarrow 0} \frac{g(x)}{x} \cdot lim_{x \rightarrow 0} x &= 0 \\
+0 \cdot 0 \cdot 0 &= 0 &\hfill \square
+\end{align*}
+
+\subsection*{Teilaufgabe ii)}
+
+\begin{align*}
+z.z.: \frac{|x-rd(x)|}{|x|} &= \frac{|rd(x) - x|}{|rd(x)|} + o(eps)
+\end{align*}
+Keine Beweisidee gefunden!
+
+\section*{Aufgabe 2}
+
+Die absolute Kondition ist $0$, da die Kondition des ersten Operanden $1$ ist und die Kondition des zweiten Operanden $-1$ ist.
+\begin{align*}
+\kappa_{abs} &= || f'(x) || \\
+x &= (x_1,x_2)^T \\
+f(x) &= x_1-x_2 \\
+\\
+\frac{d f(x)}{dx_1} &= 1 \\
+\frac{d f(x)}{dx_2} &= -1 \\
+\\
+\kappa_{abs} &= sup \left( \frac{|x_1 + x_2|}{|x_1| + |x_2|} \right) = sup \left( \frac{0}{2} \right) = 0
+\end{align*}
+
+\section*{Aufgabe 3}
+
+\begin{align*}
+\kappa_{abs} &= f'(x) \\
+f(x) &= (x-2)^2 \\
+f'(x) &= 2 \cdot (x-2) \\
+x_0 &= 4 \\
+f'(x_0) &= 2 \cdot (4-2) = 4 \\
+\kappa_{abs} &= 4
+\end{align*}
+
+\end{document}

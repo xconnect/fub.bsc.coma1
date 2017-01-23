@@ -1,0 +1,87 @@
+\documentclass[oneside,11pt,a4paper]{scrartcl}
+\usepackage[top=15mm,left=15mm,right=15mm,bottom=10mm,includefoot]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}							%Mathe Befehle
+\usepackage{amssymb}							%Mathe Sonderzeichen
+\usepackage{MnSymbol}							%Mathe Sonderzeichen
+\usepackage{multirow}							%\multirow{#Zeilen}{*}{Inhalt}
+\usepackage[automark]{scrpage2}					%Kopf- und Fußzeilen
+\usepackage{graphicx}							%Bilder
+\usepackage{subcaption}							%Unterbilder
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}	%Farben
+\usepackage{listings}							%source code
+\usepackage{tikz}								%Graphzeichnen
+	\usetikzlibrary{arrows,backgrounds,trees,automata}
+\usepackage{algorithm}                            %Pseudocode
+\usepackage{algpseudocode}                        %Pseudocode
+
+\renewcommand*{\familydefault}{\rmdefault}				%allgemeine Schriftart
+\setkomafont{sectioning}{\rmfamily\bfseries\boldmath}		%Schriftart der Überschriften
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\N}{\mathbb{N}}
+
+
+\title{Computerorientierte Mathematik\\ $Landau$ -Notation}
+
+\begin{document}
+\pagestyle{scrheadings}
+
+\maketitle
+
+\lstset{language=Java,
+numbers=left,
+stepnumber=1,
+showstringspaces=false,
+escapeinside=||,
+basicstyle=\footnotesize\ttfamily,
+keywordstyle=\color{black},
+commentstyle=\color{black},
+identifierstyle=\color{black},
+stringstyle=\color{black}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent Diese Definitionen und Erklärungen wurden aus dem Buch: \\
+Th.H.Cormen | Ch.E.Leiserson | R.Rivest |C.Stein "\ Algorithmen - Eine Einführung"(ISBN: 978-3-486-58262) entnommen (Kapitel 3.1)
+\section*{$\Theta$-Notation}
+Für eine gegebene Funktion $g$ bezeichnet $\Theta(g)$ die Menge der Funktionen:
+\begin{align*}
+\theta(g(n)) = \{ f(n): \text{ es existieren positive Konstante } c_1, c_2 \text{ und } n_0 \text{ sodass } 0 \le c_1 \cdot g(n) \le f(n) \le  c_2 \cdot g(n) \quad\forall n \ge n_0 \}
+\end{align*}
+Eine Funktion $f$ gehört zur Menge $\Theta(g)$, wenn positive Konstanten $c_1$ und $c_2$ existieren, sodass $f(n)$ zwischen $c_1\cdot g(n)$ und $c_2 \cdot g(n)$ für ein hinreichend großes $n$ eingeschlossen werden kann.
+\section*{$\O$-Notation}
+Die $\Theta$-Notation beschränkt eine Funktion asymptotisch von oben \textbf{und} unten.
+Wenn wir nur die \textbf{\textit{obere asymptotische Schranke}} betrachten wollen, verwenden wir die $\O$-Notation. ($\O=O$)\\
+Wir definieren analog zur $\Theta$-Notation folgende Menge:
+\begin{align*}
+\O(g(n)) = \{ f(n): \text{ es existieren positive Konstante } c \text{ und } n_0 \text{ sodass } 0 \le f(n) \le c \cdot g(n) \quad\forall n \ge n_0 \}
+\end{align*}
+Die $\O$-Notation kann verwendet werden die obere Schranke einer Funktion bis auf einen konstanten Faktor anzugeben.
+\subsection*{Bemerkung}
+Technisch gesehen ist es falsch zu sagen, dass die Laufzeit von Bubblesort in $\O(n^2)$ liegt, da die tatsächliche Laufzeit eines Algorithmus von der spezifischen Eingabegröße $n$ abhängt und damit variieren kann.\\
+Wenn man nun sagt "Die Laufzeit ist in $\O(n^2)$" bedeutet das eigentlich:\\
+Es gibt eine Funktion $f(n)$ in $\O(n^2)$, sodass für jeden Wert von $n$, egal wie die spezielle Eingabe der Größe $n$ aussieht, die Laufzeit für diese Eingabe von oben durch den Wert $f(n)$ beschränkt ist. 
+Entsprechend meinen wir, dass die Laufzeit im schlechtesten Fall (\textit{Worst-Case}) in $\O(n^2)$ liegt.
+\section*{$o$-Notation}
+Die von der $\O$-Notation definierte obere Schranke kann scharf sein, \textbf{muss} es aber \textbf{nicht}!\\
+Die Schranke $2n^2=\O(n^2)$ ist asymptotisch scharf, während $2n=\O(n^2)$ nicht ist.\\
+Die $o$-Notation wir verwendet, um eine \textit{nicht asymptotische scharfe} obere Schranke zu definieren.\\
+Sei die Menge wie folgt definiert:
+\begin{align*}
+o(g(n)) = \{ f(n): \text{ für jedes positive } c > 0 \text{ existiert ein konstantes } n_0 > 0 \text{ ,sodass } 0 \le f(n) < c \cdot g(n) \quad\forall n \ge n_0 \}
+\end{align*}
+Die Definitionen der $\O$-Notation und der $o$-Notation sind sich sehr ähnlich. Der große Unterschied liegt aber darin, dass $f(n)=\O(g(n))$ die Schranke $0 \le f(n) \mathbf{\le} c \cdot g(n)$ für (irgend)\textbf{eine} Konstante $c >0$ verwendet.
+In der $o$-Notation wird dagegen die Schranke $0 \le f(n) \mathbf{<} c \cdot g(n)$ für \textbf{alle} Konstanten $c>0$ verwendet. (Beachte jeweils $<$ in der $o$-Notation und $\le$ $\O$-Notation).\\
+Man kann beobachten, dass in der $o$-Notation die Funktion $f(n)$ gegenüber $g(n)$ unbedeutend wird, wenn $(n \to \infty)$.\\
+Das führt zu der Grenzwertdefinition:
+\begin{align*}
+\lim_{n \to \infty}{\frac{f(n)}{g(n)}}=0
+\end{align*}
+\subsection*{Beispiel:}
+Es gilt: $2n = 0(n^2)$ und $2n^2 \neq o(n^2)$
+
+\end{document}
+
+

@@ -1,0 +1,313 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{Mitschrft der Tutorien}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 0}
+
+\author{Samanta Scharmacher\inst{1}\\Nicolas Lehmann\inst{2} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{Tutorium 1, 28.10.2015}
+
+Tutor stellt sich vor: Tim Dittmann, eMail: tim@zedat.fu-berlin.de\\
+Die geschriebenen Programme an die eMail-Adresse des Tutors senden.
+
+\section*{Organisatorisches}
+
+Skript abzuholen im Copyshop in Dahlem Dorf (K\"onnigign-Luise -Strasse,\\
+Preis 5,80 EUR\\
+\\
+Scheinkriterien:
+\begin{itemize}
+\item Klausur bestehen mit $\geq 4.0$
+\item Klausurtermine 05.02.2015 und 15.04.2015
+\item 60\% der Programmieraufgaben
+\item 60\% der Theorieaufgaben
+\item einmal Vorrechnen
+\end{itemize}
+Die Abgabe der \"ubungszettel erfolgt in Zweiergruppen. Es ist ok, tutorium\"ubergreifende \"Ubungsgruppen zu bilden.
+Abgabe soll bei Tim Dittmann erfolgen (Samanta Scharmacher und Nicolas Lehmann), zwei Wochen nach dem Erscheinen des Zettels. Quellcode an die eMail senden und Abgabe der L\"osung des Zettel inklusive gedrucktem Quellcode ins Fach des Tutors.\\
+\\
+Subject der eMail = \texttt{[CoMa] <Name1> <Name2> <Uebungszettelnummer>}\\
+\\
+Abgabe der Dateien in gezippter Form. Es soll immer eine Run-Datei \texttt{run\_x\_y.m} und Funktions-Dateien abgegeben werden. (Mit x ist Zettelnummer und y ist Aufgabennummer.)
+
+\section*{Positiossysteme}
+
+\subsection*{Einleitung}
+
+Problem: Nat\"urliche Zahlen sind abstrakte mathematische Objekte, die wir darstellen wollen.\\
+\\
+L\"osung hierf\"ur sind Positionssysteme.\\
+\\
+$n  \in \mathbb{N}$, mit Basis $q \in \mathbb{N} \setminus \{0,1\}$\\
+\\
+$n = \sum_{i=0}^{k} r_i \cdot qî, 0 \leq r_i < q$ und identifizieren $n$ mit dem $r_i$ bzw. mit Ziffern (Darstellung von $n$ zur Basis $q$)
+
+\subsection*{Beispiel}
+
+$1 \cdot 10^2 + 2 \cdot 10^1 + 3 \cdot 10^0 = 123_{10}$\\
+$1 \cdot 7^2 + 2 \cdot 7^1 + 3 \cdot 7^0 = 123_7$
+
+\subsection*{Umrechnen}
+
+Umrechnen: $q \in \mathbb{N} \setminus \{0,1\}$\\
+\\
+$n_0 = \sum_{i=0}^{k} r_i \cdot q^i \longrightarrow \frac{n_0}{q} = \sum_{i=1}^{k} r_i \cdot q^{i-1}$ + Rest $r_0$\\
+$n_1 = \sum_{i=0}^{k} r_i \cdot q^i \longrightarrow \frac{n_1}{q} = \sum_{i=1}^{k} r_i \cdot q^{i-2}$ + Rest $r_1$\\
+...\\
+$n_k = r_k \cdot 1 \longrightarrow \frac{n_k}{q} = 0$ + Rest $r_k$\\
+\\
+$\Rightarrow$ Darstellung von $n$ ist $r_k r_{k-1} ... r_1 r_0$\\
+\\
+Beispiel: $n = 52_{10}, q = 3$\\
+\\
+$n_0 = 52_{10} \longrightarrow 17$ Rest $1$\\
+$n_1 = 17_{10} \longrightarrow  5$ Rest $2$\\
+$n_2 =  5_{10} \longrightarrow  1$ Rest $2$\\
+$n_3 =  1_{10} \longrightarrow  0$ Rest $1$\\
+\\
+$n = 1221_3$
+
+\section*{Darstellung von negativen Zahlen}
+
+$q=2$ ab jetzt (Dual bzw. Bin\"arsystem) mit Vorzeichen-Bit: Darstellung der Zahl im 2er-System, erstes Bit gibt Vorzeichen an (+ = 0, - = 1)\\
+\\
+\subsection{Beispiel}
+
+z.B. 4-Bit, $3_{10} = 0011_2$, $-3 = 1011$ (nicht Zweierkomplement!)
+
+\subsection*{N-Bit Zweierkomplement}
+
+N=4, positive Zahlen wie gewohnt, negative wie folgt:\\
+$n = -3_{10} \rightarrow 0011 \rightarrow 1100 \rightarrow 1101$ (Bit-Flip, +1)\\
+\\
+Vorteile: $0$ eindeutig $(0000 \rightarrow 1111 \rightarrow [1]0000)$ [nur 4 Bit] 
+
+\section*{Programmieren in MATLAB}
+
+\subsection*{Funktionen}
+
+\begin{verbatim}
+function c = kgV(a,b)
+c = 0;
+i = 1;
+
+while i <= a*b % solange i <= a * b tue folgendes
+  if mod(i,a) == 0 && mod(i,b) == 0
+    c = 1;
+    break; % beende die Schleife
+  else % ansonsten
+    i = i+1;
+  end
+end
+
+end %eof
+\end{verbatim}
+
+
+\chapter*{Tutorium 2, 04.11.2015}
+
+\subsection*{Wiederholung zur Vorlesung}
+
+$z_{n}z_{n-1}z...z_{0}z_{-1}...z_{-m}= \sum_{i=-m}^{n} z_i \cdot q^{i}$, $q \in \mathbb{N} \setminus \{0,1\}$, $z_i \in \{0,...,q-1\}$\\
+\\
+z.B. $q=10$ Dezimalbruch, $q=2$ Dualbruch\\
+\\
+Nicht jeder Bruch ist in endlicher q-adischer Bruch.\\
+\\
+z.B. $\frac{1}{3} = 0,333... = 0,\overline{3}$, aber jeder Brch ist ei periodischer q-adicher Bruch.\\
+z.B. $\frac{1}{4} = 0,25\overline{0} = 0,24\overline{9}$\\
+\\
+$\frac{1}{3} = 0,333... = 0,3 \cdot (1 + 10^{-1}+10^{-2}+...) = 0,3 \cdot \sum_{i=0}^{\infty} = \frac{1}{1-\frac{1}{10}} = \frac{3}{10} \cdot \frac{1}{\frac{9}{10}} = \frac{3}{10} \cdot \frac{10}{9} = \frac{1}{3}$\\
+\\
+$0,001100110011_2 = 0,\overline{0011} = (\frac{1}{8} + \frac{1}{16}) \cdot (2^0 +2^{-4} + 2^{-8}+...) = \frac{3}{16} \cdot \sum_{i=0}^{\infty} 2^-4i = \frac{3}{16} \cdot \frac{1}{1-2^{-4}} = \frac{3}{16} \cdot \frac{1}{1-\frac{1}{16}} = \frac{3}{16} \cdot \frac{16}{15} = \frac{1}{5}$
+
+\subsection*{Umrechnen}
+
+$q \in \mathbb{N} \setminus \{0,1\}$, $z = \sum_{i=-m}^{n} z_i \cdot q^{i} = \sum_{i=0}^{n} z_i \cdot q^{i} + \sum_{i=-m}^{-1} z_i \cdot q^{i}$\\
+Hinweis: Erste Summe wie gewohnt umrechnen, zweite Summe konvertieren zu $\sum_{i=1}^{m} z_i \cdot q^{-i}$\\
+\\
+1. Fall: $m \in \mathbb{N}$\\
+\\
+$z = p_1p_2...p_m$, mit $m \in \mathbb{N} \cup \{\infty\}$\\
+\\
+$p_1 = \sum_{i=1}^{m} z_i \cdot q^{-i} \longrightarrow \sum_{i=2}^{m} z_i \cdot q^{-i+1} + z_1$\\
+$p_2 = \sum_{i=2}^{m} z_i \cdot q^{-i+1} \longrightarrow \sum_{i=3}^{m} z_i \cdot q^{-i+2} + z_2$\\
+...\\
+$p_m = z_m \cdot q^{-1} \longrightarrow 0 + z_m$\\
+\\
+2. Fall: $m \in \infty$\\
+\\
+$p_k = \sum_{i=k}^{\infty} z_{i} \cdot q^{-i} \longrightarrow \sum_{i=k+1}^{\infty} z_{i} \cdot q^{-i+1} + z_{k}$ mit $p_{k+1} = p_{l}$, $l \leq k$\\
+\\
+$\Rightarrow z = z_{n}...z_{0},z_{1}...z_{l-1}\overline{z_{l}...z_{k}}$
+
+\subsection*{Beispiel}
+
+$z = \frac{1}{7}$, $q = 10$\\
+$p_1 = \frac{1}{7} \longrightarrow \frac{10}{7} = \frac{3}{7}+1$\\
+$p_2 = \frac{3}{7} \longrightarrow \frac{30}{7} = \frac{2}{7}+4$\\
+$p_3 = \frac{2}{7} \longrightarrow \frac{20}{7} = \frac{6}{7}+2$\\
+$p_4 = \frac{6}{7} \longrightarrow \frac{60}{7} = \frac{4}{7}+8$\\
+$p_5 = \frac{4}{7} \longrightarrow \frac{40}{7} = \frac{5}{7}+5$\\
+$p_6 = \frac{5}{7} \longrightarrow \frac{50}{2} = \frac{1}{7}+7$\\
+\\
+$\Rightarrow 0,\overline{142857}$\\
+\\
+In diesem Fall $l=1, k=6$, $p_1 = \frac{1}{7} = p_{k+1}$
+
+\subsection*{Beispiel}
+
+$z = \frac{1}{10}$, $q = 2$\\
+$p_1 = \frac{1}{10} \longrightarrow \frac{1}{5}+0$\\
+$p_2 = \frac{1}{5} \longrightarrow \frac{2}{5}+0$\\
+$p_3 = \frac{2}{5} \longrightarrow \frac{4}{5}+0$\\
+$p_4 = \frac{4}{5} \longrightarrow \frac{3}{5}+1$\\
+$p_5 = \frac{3}{5} \longrightarrow \frac{1}{5}+1$\\
+\\
+$\Rightarrow 0,0\overline{0011}$, da $p_2 = p_6$
+
+\subsection*{Umrechnen}
+
+Rechnen mit Dualzahlen geht genauso wie im Dezimalsystem, z.B.: $111 \cdot 101,1$\\
+\\
+$11,1 + 111 + 0000 + 11100 = 100110,1$
+
+\subsection*{Numerische Darstellung von reelen Zahlen}
+
+Problem: Reele Zahlen sind nicht abz\"ahlbar, weshalb es kein Ziffernsystem f\"ur sie geben kann. Man kann nur Approximationen ausgeben, z.B. q-adische Br\"uche.
+
+\subsection*{Festkommazahlen}
+
+Feste Anzahl von $n$ Vor- und Nachkommastellen.\\
+\\
+Darstellung einer reelen Zahl: $z_{n-1}z_{n-2}...z_{0},z_{-1}...z_{-m} = \sum_{i=-m}^{n-1} z_i \cdot q^{i}$, $z_i \in \{0,...,q-1\}$
+
+\subsection*{Beispiel}
+
+$x = \pi$, $n=3$, $m=1$ $\rightarrow$ $\tilde{x} = 003,1$, Problem: Kann ungenau sein, bei festem $n$ und $m$.
+
+\subsection*{Gleitkommazahlen}
+
+\textit{genauer} bedeutet, dass der absolute Fehler $| x - \tilde{x} |$ bzw. der relative Fehler $\frac{| x - \tilde{x} |}{|x|}$ möglichst klein ist.\\
+\\
+Die Zahl $\tilde{x} = (-1)^{s}aq^{e}$ mit $s \in \{0,1\}$ Vorzeichenbit und $a=0,a_{1}...a_{l}$, $a_1 \neq 0$ oder $\forall i: a_{i} = 0$, $a_i \in \{0,...,q-1\}$ und Exponent $e \in \mathbb{Z}$ heißt Gleitkommazahl mit MAntissenl\"ange $l$, Schreibweise $\tilde{x} \in G(q,l)$\\
+\\
+z.B.: $-12345,67 \longrightarrow (-1)^1 \cdot 0,1234567 \cdot 10^{-2}$, also $s=1$,$l=7$,$e=-2$, $q=0,1234567$
+
+\chapter*{Tutorium 3, 11.11.2015}
+
+\subsection*{Runden}
+
+Suchen zu jedem $x \in \mathbb{R}$ ein $rd(x)  \in G(q,l$) mit $|x-rd(x)| \leq |x-\tilde{x}|$, $\forall \tilde{x} \in G(q,l)$\\
+Wir schreiben $x \in \mathbb{R}_{>0}$, so dass $x=0,a_1a_2...a_{l+1}... \cdot q^l$ f\"ur passendes $l \in \mathbb{Z}$\\
+\\
+Definiere $a:= 0,a_1...a_l + \begin{cases} 0, \text{falls} \, a_q+1 < \frac{1}{2}q \\ q^{-l}, \text{sonst}\end{cases}$\\
+\\
+$x \geq 0: rd(x) = a \cdot q^l$\\
+$x<0: rd(x) = -rd(-x)$\\
+$rd(x)$ ist L\"osung.\\
+\\
+! nicht f\"ur ungerade $q$: z.B. $x = 1,012 \longrightarrow rd(x) \in G(3,2) \longrightarrow |x-rd(x)| = 0,012$, aber $1,1 \in G(3,2)$ und $|1,1 - 1,012| = 0,011 < 0,012$\\
+\\
+Ab jetzt $q$ gerade:
+\begin{itemize}
+\item absoluter Rundungsfehler $|x-rd(x)|$ ist unbeschr\"ankt!
+\item relativer rundungsfehler $\frac{|x-rd(x)|}{|x|} \leq \frac{q}{2} \cdot q^{-l} = eps$ (Maschinengenauigkeit)
+\end{itemize}
+
+\subsection*{Gleitkommazahl}
+
+Eine Gleitkommazahl $\tilde{x} \in G(q,l)$ repr\"asentiert alle $x \in \mathbb{R}$, die auf $\tilde{x}$ gerundet werden, also alle $x in [\tilde{x} - q^{l-1}eps , \tilde{x} + q^{l-1}eps)$\\
+\\
+Gleichheitsabfragen ergeben keinen Sinn!
+
+\subsection*{Hausaufgabenvorbesprechung}
+
+zu 2)
+\begin{itemize}
+\item $0,00001$ und $1 \in G(10,1)$, $1+0,00001 \notin G(10,1) \longrightarrow rd(1,00001) = 1$
+\end{itemize}
+zu 3)
+\begin{itemize}
+\item Definition von $eps$
+\item Fallunterscheidung $rd(s) = 0$ und $rd(s) \neq 0$
+\item Dreiecksungleichung
+\end{itemize}
+
+\chapter*{Tutorium 4, 18.11.2015}
+
+\section*{Relative Konditionierung}
+
+\subsection*{o-Notation}
+
+$o$ ist eines der Landau-Symbole. Landau-Symbolebeschreiben Wachstum von Funktionen.\\
+\\
+Def.: $f(x) \in o(h(x)) \Leftrightarrow lim_{x \rightarrow 0}\frac{f(x)}{h(x)} = 0$\\
+\\
+$o(x) = \{f | lim_{x \rightarrow 0} \frac{f(x)}{x} = 0\}$ z.B.: $lim_{x \rightarrow 0} \frac{x^2}{x} = lim_{x \rightarrow 0} x = 0 \Longrightarrow x^2 \in o(x)$ f\"ur $x \rightarrow 0$.
+
+\subsection*{Kondition der Grundrechenarten}
+
+Wie verst\"arkt sich der (relative) Fehler in den Eingabedaten, wenn wir mit gerundeten Daten rechnen?\\
+\\
+$\tilde{x} = x \cdot (1+ \epsilon_x)$ und $\tilde{y} = y \cdot (1+\epsilon_y)$\\
+\\
+$\epsilon := max(\epsilon_x, \epsilon_y) \leq eps(q,l)$\\
+\\
+Definition der relativen Kontition der Grundrechenarten.\\
+\\
+Sei $* \in \{+,-,\cdot, /\}$, $x \cdot y \neq 0$, dann hei\ss t de kleinste Zahl $\kappa_{rel}$ mit $\frac{|x \cdot y - \tilde{x} \cdot \tilde{y}|}{|x \cdot y|} \leq \kappa_{rel} \epsilon + o(\epsilon)$ mit $\frac{o(\epsilon)}{\epsilon} \rightarrow 0$ f\"ur $\epsilon \rightarrow 0$
+
+\subsection*{Kondition von Funktionsauswertungen}
+
+Sei $I \subseteq \mathbb{R}$ Intervall, $f:I \rightarrow \mathbb{R}$, $x_0 \in I$\\
+\\
+Wir wollen untersuchen, wie sich kleine Abweichungen von $x_0$ auf die Auswertung von $f$ auswirken.\\
+\\
+Definition: Die absolute Kondition = $\kappa_{abs}$ von $f$ an der Stelle $x_0$ ist die kleinste Zahl, so dass $f(x_0) - f(\tilde{x_0})| \leq \kappa_{abs} \cdot |\tilde{x_0}-x_0| + o(|x_0 - \tilde{x_0}|)$, wenn $\kappa$ nicht existiert, setze $\kappa_{abs} = \infty$\\
+\\
+$\tilde{x_0} = rd(x_0)$
+
+\subsection*{Beispiel}
+
+$f(x) = ax+b$\\
+$|f(x)-f(\tilde{x})| = |a| \cdot |x-\tilde{x}| \Rightarrow \kappa_{abs} = |a|$\\
+$f(x) = c, c \in \mathbb{R} \Rightarrow \kappa_{abs} = 0$\\
+\\
+Falls $f$ differenzierbar $\Rightarrow \kappa_{abs} = | f'(x_0)|$
+
+\chapter*{Tutorium 5, 25.11.2015}
+\end{document}

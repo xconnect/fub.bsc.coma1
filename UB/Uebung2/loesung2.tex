@@ -1,0 +1,166 @@
+\documentclass{llncs}
+
+\usepackage{graphicx} % to be able to include graphics
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+\pagestyle{headings}               % switches on printing of running heads
+
+
+\mainmatter                        % start of the contributions
+
+\title{Computerorientierte Mathematik I}
+\subtitle{\"Ubung 2}
+\titlerunning{Computerorientierte Mathematik I\\
+\"Ubung 2}
+
+\author{Gideon Schr\"oder\inst{1}\\Samanta Scharmacher\inst{2}\\Nicolas Lehmann\inst{3} (Dipl. Kfm., BSC)}
+\authorrunning{Samanta Scharmacher \& Nicolas Lehmann \& Gideon Schr\"oder} % abbreviated author list (for running head)
+\tocauthor{Samanta Scharmacher, Nicolas Lehmann, Gideon Schr\"oder}
+
+\date{\today}
+
+\institute{
+Freie Universit\"at Berlin, FB Physik,\\
+Institut f\"ur Physik, \email{gideon.2610@hotmail.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\
+Institut f\"ur Informatik, \email{scharbrecht@zedat.fu-berlin.de}
+\and
+Freie Universit\"at Berlin, FB Mathematik und Informatik,\\Institut f\"ur Informatik, AG Datenbanksysteme, Raum 170,\\
+\email{mail@nicolaslehmann.de}, \texttt{http://www.nicolaslehmann.de}
+}
+
+\maketitle
+
+\begin{center}
+\includegraphics{fubsiegel.jpg}
+\end{center}
+
+\chapter*{L\"osungen zu den gestellten Aufgaben}
+
+\section*{Aufgabe 1}
+
+\subsection*{Teilaufgabe a)}
+
+\begin{align*}
+0,2421_5 &= 0 \cdot 5^0 + 2 \cdot 5^{-1} + 4 \cdot 5^{-2} + 2 \cdot 5^{-3} + 1 \cdot 5^{-4} \\
+         &= 0 + \frac{2}{5} + \frac{4}{5^2} + \frac{2}{5^3} + \frac{1}{5^4} \\
+         &= 0 + \frac{2}{5} + \frac{4}{25} + \frac{2}{125} + \frac{1}{625} \\
+         &= \frac{361}{625} = 0,5776 \\
+\\
+p_0 &= \frac{361}{625} \longrightarrow \frac{5415}{625} = \frac{415}{625} + 8\\
+p_1 &= \frac{415}{625} \longrightarrow \frac{6225}{625} = \frac{600}{625} + 9\\
+p_2 &= \frac{600}{625} \longrightarrow \frac{9000}{625} = \frac{250}{625} + 14\\
+p_3 &= \frac{250}{625} \longrightarrow \frac{3750}{625} = 0 + 6\\
+\\
+   p &= 0,89E6\\
+   \\
+   p &= 0 \cdot 15^0 + 8 \cdot 15^{-1} + 9 \cdot 15^{-2} + 14 \cdot 15^{-3} + 6 \cdot 15^{-4} \\
+     &= 0 + \frac{8}{15} + \frac{9}{15^2} + \frac{14}{15^3} + \frac{6}{15^4} \\
+     &= 0 + \frac{8}{15} + \frac{9}{225} + \frac{14}{3375} + \frac{6}{50625} \\
+     &= \frac{361}{625} = 0,5776
+\end{align*}
+\newpage
+
+\subsection*{Teilaufgabe b)}
+
+\subsubsection*{i)}
+
+\begin{align*}
+0,\overline{1}_2 &= 0,1_2 \cdot \sum_{i=0}^{\infty} 10^{-i}_2 \\
+               &= 0,1_2 \cdot \frac{1_2}{1_2-10^{-1}_2} \\
+               &= 0,1_2 \cdot \frac{1_2}{1_2-\frac{1_2}{10_2}} \\
+               &= 0,1_2 \cdot \frac{1_2}{\frac{1_2}{10_2}} \\
+               &= 0,1_2 \cdot 10_2 \\
+               &= 1_2
+\end{align*}
+
+\subsubsection*{ii)}
+
+\begin{align*}
+0,\overline{10}_2 &= 0,10_2 \cdot \sum_{i=0}^{\infty} 10^{-10_2 \cdot i}_2 \\
+                  &= 0,1_2 \cdot \frac{1_2}{1_2-10^{-10_2}_2} \\
+                  &= 0,1_2 \cdot \frac{1_2}{1_2-\frac{1_2}{10^{10_2}_2}} \\
+                  &= 0,1_2 \cdot \frac{1_2}{\frac{11_2}{100_2}} \\
+                  &= 0,1_2 \cdot \frac{100_2}{11_2} \\
+                  &= \frac{100_2}{110_2} \\
+                  &= \frac{10_2}{11_2}
+\end{align*}
+
+
+\subsection*{Teilaufgabe c)}
+
+\begin{align*}
+0,\overline{3}_{10} &\longrightarrow \frac{1}{3} \cdot 3 = 1 + 0 \\
+                    &\longrightarrow 0 \cdot 3 = 0 + 0 \\
+                    &\longrightarrow 0,1\overline{0}_{3} \\
+                    &\longrightarrow 0,1_{3} \\
+                  \\
+0,\overline{3}_{10} &\longrightarrow \frac{1}{3} \cdot 7 = 2 + \frac{1}{3} \\
+                    &\longrightarrow \frac{1}{3} \cdot 7 = 2 + \frac{1}{3} \\
+                    &\longrightarrow 0,\overline{2}_{7}
+\end{align*}
+
+\section*{Aufgabe 2}
+\subsection*{Teilaufgabe a)}
+
+\begin{tabular}{ccccccccccccccccccc}
+0&,&1&1&0&0&1&0&1$_2$&$\cdot$&1&0&1&0&1&,&1&1&1$_2$\\
+\hline
+ & & & &1&1&0&0&1&0      &1& & & & & & & & \\
+ & & & & &0&0&0&0&0      &0&0& & & & & & & \\
+ & & & & & &1&1&0&0      &1&0&1& & & & & & \\
+ & & & & & & &0&0&0      &0&0&0&0& & & & & \\
+ & & & & & & & &1&1      &0&0&1&0&1& & & & \\
+ & & & & & & & & &1      &1&0&0&1&0&,&1& & \\
+ & & & & & & & & &       &1&1&0&0&1&,&0&1& \\
+ & & & & & & & & &       & &1&1&0&0&,&1&0&1\\
+\hline
+ & & &1&0&0&0&1&0&1      &0&0&0&0&1&,&0&1&1$_2$\\
+\end{tabular}
+
+\subsection*{Teilaufgabe b)}
+
+$\frac{10_2}{110_2} + \frac{101_2}{10100_2} = \frac{10_2 \cdot 10100_2 + 101_2 \cdot 110_2}{110_2 \cdot 10100_2} = \frac{101000_2 + 11110_2}{11110000_2} = \frac{1000110_2}{11110000_2}$
+\newpage
+
+\section*{Aufgabe 3}
+
+\subsection*{Teilaufgabe a)}
+
+Zu zeigen: 
+\begin{center}
+\textit{Jeder endliche Dualbruch ist auch ein endlicher Dezimalbruch.}
+\end{center}
+Ein beliebiger Dualbruch ist darstellbar als:
+\begin{align*}
+\sum_{i=-m}^{n} z_{i} \cdot 2^{i} &= \sum_{i=-m}^{n} z_{i} \cdot \left( \frac{10}{5} \right)^{i} \\
+\Leftrightarrow \sum_{i=-m}^{n} z_{i} \cdot 2^{i} &= \sum_{i=-m}^{-1} z_{i} \cdot 2^{i} + \sum_{i=0}^{n} z_{i} \cdot 2^{i} \\
+                                  &= \sum_{i=1}^{m} z_{-i} \cdot 2^{-i} + \sum_{i=0}^{n} z_{i} \cdot 2^{i} \\
+                                  &= \sum_{i=0}^{m-1} z_{1-i} \cdot 2^{1-i} + \sum_{i=0}^{n} z_{i} \cdot 2^{i}\\
+\Leftrightarrow \sum_{i=-m}^{n} z_{i} \cdot \left( \frac{10}{5} \right)^{i} &= \sum_{i=-m}^{n} z_{i} \cdot \left(\frac{1}{5}\right)^{i} 10^{i} \\
+                                  &= \left(\frac{1}{5}\right)^{n+m} \sum_{i=-m}^{n} z_{i} \cdot 10^{i} \\
+                                  &= \left(\frac{1}{5}\right)^{n+m} \left( \sum_{i=-m}^{-1} z_{i} \cdot 10^{i} + \sum_{i=0}^{n} z_{i} \cdot 10^{i} \right) \\
+                                  &= \left(\frac{1}{5}\right)^{n+m} \left( \sum_{i=1}^{m} z_{-i} \cdot 10^{-i} + \sum_{i=0}^{n} z_{i} \cdot 10^{i} \right) \\
+                                  &= \left(\frac{1}{5}\right)^{n+m} \left( \sum_{i=0}^{m-1} z_{1-i} \cdot 10^{1-i} + \sum_{i=0}^{n} z_{i} \cdot 10^{i} \right)
+\end{align*}
+$\hfill \square$
+
+
+\subsection*{Teilaufgabe b)}
+
+Angenommen es gilt:
+\begin{center}
+\textit{Jeder endliche Dezimalbruch ist auch ein endlicher Dualbruch.}
+\end{center}
+Dann w\"are die Dezimalzahl $0,4$ als endlicher Dualbruch darstellbar.
+\begin{center}
+$0,4_{10} = 0,\overline{0110}_2$, Widerspruch $\lightning$
+\end{center}
+
+\end{document}
